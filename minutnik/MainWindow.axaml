@@ -2,8 +2,64 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="460"
         x:Class="minutnik.MainWindow"
-        Title="minutnik">
-    Welcome to Avalonia!
+        Title="Minutnik - Zadanie 3.1"
+        Width="480"
+        Height="460"
+        WindowStartupLocation="CenterScreen"
+        Background="#1E1E2E">
+    <StackPanel Spacing="14" Margin="24">
+        <TextBlock Text="MINUTNIK PRACY I PRZERWY"
+                   FontSize="16"
+                   FontWeight="Bold"
+                   Foreground="#CDD6F4"
+                   HorizontalAlignment="Center" />
+
+        <StackPanel Orientation="Horizontal" Spacing="16" HorizontalAlignment="Center">
+            <StackPanel Spacing="4">
+                <TextBlock Text="Praca (min):" Foreground="#A6ADC8" FontSize="12" />
+                <TextBox Name="WorkMinutesBox" Text="25" Width="90" />
+            </StackPanel>
+            <StackPanel Spacing="4">
+                <TextBlock Text="Przerwa (min):" Foreground="#A6ADC8" FontSize="12" />
+                <TextBox Name="BreakMinutesBox" Text="5" Width="90" />
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock Name="PhaseText"
+                   Text="Tryb: Praca"
+                   FontSize="15"
+                   FontWeight="SemiBold"
+                   Foreground="#A6E3A1"
+                   HorizontalAlignment="Center" />
+
+        <StackPanel Orientation="Horizontal" Spacing="24" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Name="TimeText"
+                       Text="25:00"
+                       FontSize="48"
+                       FontWeight="Bold"
+                       Foreground="#89DCEB"
+                       VerticalAlignment="Center" />
+
+            <TextBlock Name="CyclesText"
+                       Text="Skończone cykle: 0"
+                       FontSize="16"
+                       Foreground="#F9E2AF"
+                       VerticalAlignment="Center" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center">
+            <Button Name="StartPauseButton"
+                    Content="Start"
+                    Width="120"
+                    HorizontalContentAlignment="Center"
+                    Click="OnStartPauseClick" />
+            <Button Name="ResetButton"
+                    Content="Reset"
+                    Width="120"
+                    HorizontalContentAlignment="Center"
+                    Click="OnResetClick" />
+        </StackPanel>
+    </StackPanel>
 </Window>
