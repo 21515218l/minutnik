@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -9,6 +10,7 @@ namespace minutnik;
 public partial class MainWindow : Window
 {
     private readonly DispatcherTimer _timer = new();
+    private readonly List<string> _history = new();
     private int _remainingSeconds = 25 * 60;
     private int _cycles = 0;
     private bool _isRunning = false;
@@ -48,6 +50,8 @@ public partial class MainWindow : Window
         if (!_isBreak)
         {
             _cycles++;
+            _history.Add($"{DateTime.Now:HH:mm} — cykl {_cycles}");
+            HistoryList.ItemsSource = _history.ToArray();
             _isBreak = true;
             _remainingSeconds = GetDurationSeconds(BreakMinutesBox.Text, 5);
             UpdateDisplay();

@@ -61,5 +61,7 @@
                     HorizontalContentAlignment="Center"
                     Click="OnResetClick" />
         </StackPanel>
+
+        <ListBox Name="HistoryList" Height="130" />
     </StackPanel>
 </Window>
