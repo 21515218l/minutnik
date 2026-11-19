@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
@@ -19,7 +20,20 @@ public partial class MainWindow : Window
 
         _timer.Interval = TimeSpan.FromSeconds(1);
         _timer.Tick += OnTimerTick;
+        WorkMinutesBox.TextChanged += OnDurationInputChanged;
+        BreakMinutesBox.TextChanged += OnDurationInputChanged;
         UpdateDisplay();
+    }
+
+    private void OnDurationInputChanged(object? sender, TextChangedEventArgs e)
+    {
+        if (!_isRunning)
+        {
+            _remainingSeconds = _isBreak
+                ? GetDurationSeconds(BreakMinutesBox.Text, 5)
+                : GetDurationSeconds(WorkMinutesBox.Text, 25);
+            UpdateDisplay();
+        }
     }
 
     private void OnTimerTick(object? sender, EventArgs e)
@@ -74,9 +88,13 @@ public partial class MainWindow : Window
 
     private int GetDurationSeconds(string? input, int defaultMinutes)
     {
-        if (int.TryParse(input, out int minutes) && minutes > 0)
+        if (!string.IsNullOrWhiteSpace(input))
         {
-            return minutes * 60;
+            string normalized = input.Trim().Replace(',', '.');
+            if (double.TryParse(normalized, NumberStyles.Float, CultureInfo.InvariantCulture, out double minutes) && minutes > 0)
+            {
+                return Math.Max(1, (int)Math.Round(minutes * 60));
+            }
         }
         return defaultMinutes * 60;
     }
