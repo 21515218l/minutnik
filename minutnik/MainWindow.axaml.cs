@@ -28,12 +28,21 @@ public partial class MainWindow : Window
         {
             _remainingSeconds--;
             UpdateDisplay();
+            return;
+        }
+
+        if (!_isBreak)
+        {
+            _cycles++;
+            _isBreak = true;
+            _remainingSeconds = GetDurationSeconds(BreakMinutesBox.Text, 5);
+            UpdateDisplay();
         }
         else
         {
-            _timer.Stop();
-            _isRunning = false;
-            StartPauseButton.Content = "Start";
+            _isBreak = false;
+            _remainingSeconds = GetDurationSeconds(WorkMinutesBox.Text, 25);
+            UpdateDisplay();
         }
     }
 
